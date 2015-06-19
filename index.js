@@ -9,6 +9,7 @@ power.on().then(function(channels) {
 
   patchbay = new Patchbay(channels.input, channels.output);
   patchbay.connect(new LFO(), mappers.lowpass);
+  patchbay.connect(new LFO(), mappers.reso);
 
   channels.input.on('message', function(deltaTime, message, d) {
     console.log('m:' + message + ' d:' + deltaTime);
