@@ -1,13 +1,13 @@
 {
-  "name": "synth",
+  "name": "synthax",
   "version": "1.0.0",
-  "description": "",
+  "description": "A MIDI I/O patching/mixing library",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "",
+  "author": "Ross Brown",
   "license": "ISC",
   "dependencies": {
     "midi": "~0.9.3",
