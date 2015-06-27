@@ -1,5 +1,8 @@
 {
   "name": "synthax",
+  "engines": {
+    "node": "0.10.25"
+  },
   "version": "1.0.0",
   "description": "A MIDI I/O patching/mixing library",
   "main": "index.js",
@@ -12,6 +15,7 @@
   "dependencies": {
     "midi": "~0.9.3",
     "q": "~1.4.1",
-    "prompt": "~0.2.14"
+    "prompt": "~0.2.14",
+    "kinect": "~0.3.0"
   }
 }
