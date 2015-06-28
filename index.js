@@ -15,16 +15,16 @@ power.on().then(function(channels) {
   mappers.connect(channels.output);
 
   filter_mixer = new SubMixer();
-  // filter_mixer.lineIn(new LFO(400));
+  filter_mixer.lineIn(new LFO(400));
   filter_mixer.lineIn(new LFO(10));
   // patchbay.connect(new LFO(200), mappers.reso);
   var video = new KinectVideo();
   var ca = new Color;
 
   green_pre = new Preamp({
-    dataValue: 'green', rmin: 0, rmax: 256
+    dataValue: 'green', rMin: 0, rMax: 256
   });
-  
+
   patchbay.connect(video, ca);
   patchbay.connect(ca, green_pre);
 
