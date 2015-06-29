@@ -97,7 +97,7 @@ patchbay.connect(filter_mixer, mappers.lowpass); // connect output to LPF
 
 # Example
 
-```json
+```js
 var power       = require('./lib/power');
 var Patchbay    = require('./lib/patchbay');
 var SubMixer    = require('./lib/submixer');
