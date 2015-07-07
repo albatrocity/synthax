@@ -2,11 +2,14 @@ var midi        = require('midi');
 var power       = require('./lib/power');
 var Patchbay    = require('./lib/patchbay');
 var SubMixer    = require('./lib/submixer');
+var ActionResponder = require('./lib/action_responder');
 var phatty      = require('./lib/mappers/sub_phatty');
 var LFO         = require('./lib/input_sources/LFO');
 var KinectVideo = require('./lib/input_sources/kinect_video');
 var Preamp      = require('./lib/preamp');
 var Color       = require('./lib/analyzers/color_analyzer');
+var Faces       = require('./lib/analyzers/face_detector');
+var cv          = require('opencv');
 
 power.on().then(function(channels) {
   console.log("Powered On");
@@ -14,23 +17,35 @@ power.on().then(function(channels) {
   var patchbay = new Patchbay(channels.input, channels.output);
   phatty.connect(channels.output);
 
-  // filter_mixer = new SubMixer();
-  // filter_mixer.lineIn(new LFO(400));
-  // filter_mixer.lineIn(new LFO(10));
-
   var video = new KinectVideo();
-  var ca = new Color;
+  // var ca = new Color;
+  //
+  // green_pre = new Preamp({
+  //   dataValue: 'green', rMin: 0, rMax: 256
+  // });
+  //
+  // patchbay.connect(video, ca);
+  // patchbay.connect(ca, green_pre);
+  //
+  // patchbay.connect(green_pre, phatty.lowpass);
 
-  green_pre = new Preamp({dataValue: 'green', rMin: 0, rMax: 256});
-  red_pre   = new Preamp({dataValue: 'red', rMin: 0, rMax: 256});
-  blue_pre  = new Preamp({dataValue: 'blue', rMin: 0, rMax: 256});
+  var faces = new Faces;
+  var eye_contact = new ActionResponder({
+    responders: [
+      {
+        action: 'eyes_closed',
+        mapper: phatty.note_off,
+        value: 100
+      },
+      {
+        action: 'eyes_opened',
+        mapper: phatty.note_on,
+        value: 100
+      }
+    ]
+  });
 
-  patchbay.connect(video, ca);
-  patchbay.connect(ca, green_pre);
-  patchbay.connect(ca, blue_pre);
-
-  patchbay.connect(green_pre, phatty.vco2_freq);
-  patchbay.connect(blue_pre, phatty.lowpass);
-  patchbay.connect(red_pre, phatty.multidrive);
+  patchbay.connect(video, faces);
+  patchbay.connect(faces, eye_contact);
 
 });
