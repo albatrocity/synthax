@@ -2,6 +2,7 @@ var midi        = require('midi');
 var power       = require('./lib/power');
 var Patchbay    = require('./lib/patchbay');
 var SubMixer    = require('./lib/submixer');
+var Buss        = require('./lib/buss');
 var ActionResponder = require('./lib/action_responder');
 var phatty      = require('./lib/mappers/sub_phatty');
 var LFO         = require('./lib/input_sources/LFO');
@@ -18,16 +19,16 @@ power.on().then(function(channels) {
   phatty.connect(channels.output);
 
   var video = new KinectVideo();
-  // var ca = new Color;
-  //
-  // green_pre = new Preamp({
-  //   dataValue: 'green', rMin: 0, rMax: 256
-  // });
-  //
-  // patchbay.connect(video, ca);
-  // patchbay.connect(ca, green_pre);
-  //
-  // patchbay.connect(green_pre, phatty.lowpass);
+  var videoBuss = new Buss;
+  videoBuss.lineIn(video);
+
+  var ca = new Color;
+  green_pre = new Preamp({
+    dataValue: 'red', rMin: 0, rMax: 256
+  });
+  patchbay.connect(videoBuss, ca);
+  patchbay.connect(ca, green_pre);
+  patchbay.connect(green_pre, phatty.lowpass);
 
   var faces = new Faces;
   var eye_contact = new ActionResponder({
@@ -44,8 +45,7 @@ power.on().then(function(channels) {
       }
     ]
   });
-
-  patchbay.connect(video, faces);
+  patchbay.connect(videoBuss, faces);
   patchbay.connect(faces, eye_contact);
 
 });
