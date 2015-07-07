@@ -12,6 +12,12 @@ var Color       = require('./lib/analyzers/color_analyzer');
 var Faces       = require('./lib/analyzers/face_detector');
 var cv          = require('opencv');
 
+// var input = new midi.input();
+// input.on('message', function(deltaTime, message) {
+//   console.log('m:' + message + ' d:' + deltaTime);
+// });
+// input.openPort(0);
+
 power.on().then(function(channels) {
   console.log("Powered On");
 
@@ -24,7 +30,7 @@ power.on().then(function(channels) {
 
   var ca = new Color;
   green_pre = new Preamp({
-    dataValue: 'red', rMin: 0, rMax: 256
+    dataValue: 'green', rMin: 0, rMax: 256
   });
   patchbay.connect(videoBuss, ca);
   patchbay.connect(ca, green_pre);
