@@ -13,12 +13,9 @@
   "author": "Ross Brown <albatrocity@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "midi": "~0.9.3",
+    "midi": "~0.9.4",
     "q": "~1.4.1",
     "prompt": "~0.2.14",
-    "kinect": "~0.3.0",
-    "color-thief": "~2.1.0",
-    "jpeg": "~2.0.0",
-    "opencv": "~3.0.0"
+    "jpeg": "~2.0.0"
   }
 }
