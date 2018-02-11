@@ -1,8 +1,10 @@
-exports.Patchbay        = require('./lib/patchbay');
-exports.power           = require('./lib/power');
-exports.SubMixer        = require('./lib/submixer');
-exports.Buss            = require('./lib/buss');
-exports.ActionResponder = require('./lib/action_responder');
-exports.Preamp          = require('./lib/preamp');
-exports.InputSources    = require('./lib/input_sources');
-exports.Mappers         = require('./lib/mappers');
+module.exports = {
+  Patchbay :require('./lib/patchbay'),
+  power :require('./lib/power'),
+  SubMixer :require('./lib/submixer'),
+  Buss :require('./lib/buss'),
+  ActionResponder :require('./lib/action_responder'),
+  Preamp :require('./lib/preamp'),
+  InputSources :require('./lib/input_sources'),
+  Mappers :require('./lib/mappers'),
+}
